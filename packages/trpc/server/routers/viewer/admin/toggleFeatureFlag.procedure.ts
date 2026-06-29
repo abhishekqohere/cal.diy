@@ -1,7 +1,7 @@
-import { authedAdminProcedure } from "../../../procedures/authedProcedure";
+import authedProcedure from "../../../procedures/authedProcedure";
 import { ZAdminToggleFeatureFlagSchema } from "./toggleFeatureFlag.schema";
 
-export const toggleFeatureFlag = authedAdminProcedure
+export const toggleFeatureFlag = authedProcedure
   .input(ZAdminToggleFeatureFlagSchema)
   .mutation(async (opts) => {
     const { default: handler } = await import("./toggleFeatureFlag.handler");
