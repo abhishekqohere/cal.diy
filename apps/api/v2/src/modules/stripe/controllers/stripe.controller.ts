@@ -47,7 +47,6 @@ export class StripeController {
   ) {}
 
   @Get("/connect")
-  @UseGuards(ApiAuthGuard)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: "Get Stripe connect URL" })
   @ApiHeader(API_KEY_OR_ACCESS_TOKEN_HEADER)
