@@ -101,9 +101,9 @@ export const eventTypesRouter = router({
 
   get,
 
-  delete: createEventPbacProcedure("eventType.delete", [MembershipRole.ADMIN, MembershipRole.OWNER])
-    .input(ZDeleteInputSchema)
-    .mutation(async ({ ctx, input }) => {
+  delete: authedProcedure
+  .input(ZDeleteInputSchema)
+  .mutation(async ({ ctx, input }) => {
       const { deleteHandler } = await import("./delete.handler");
 
       return deleteHandler({
