@@ -15,7 +15,6 @@ export async function checkPermissions(args: {
       id: teamId,
       members: {
         some: {
-          userId,
           role,
         },
       },
