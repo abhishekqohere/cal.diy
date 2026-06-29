@@ -11,7 +11,6 @@ import getIP from "@calcom/lib/getIP";
 import { HttpError } from "@calcom/lib/http-error";
 import logger from "@calcom/lib/logger";
 import { piiHasher } from "@calcom/lib/server/PiiHasher";
-import { checkCfTurnstileToken } from "@calcom/lib/server/checkCfTurnstileToken";
 import { prisma } from "@calcom/prisma";
 import { signupSchema } from "@calcom/prisma/zod-utils";
 
@@ -48,9 +47,6 @@ async function handler(req: NextRequest) {
 
     const body = await parseRequestData(req);
     const query = Object.fromEntries(req.nextUrl.searchParams.entries());
-    await checkCfTurnstileToken({
-      token: req.headers.get("cf-access-token") as string,
-      remoteIp,
     });
 
     await ensureSignupIsEnabled(body);
