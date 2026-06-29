@@ -56,7 +56,6 @@ export const bookingsProcedure = authedProcedure
           team: {
             members: {
               some: {
-                userId: loggedInUser.id,
                 role: {
                   in: [MembershipRole.ADMIN, MembershipRole.OWNER],
                 },
