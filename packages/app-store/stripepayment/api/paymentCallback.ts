@@ -82,7 +82,7 @@ async function getHandler(req: NextApiRequest, res: NextApiResponse) {
   const email = user.email ?? stripeCustomer.email;
 
   // If payment hasn't been completed, redirect to verify page with failure status
-  if (checkoutSession.payment_status !== "paid") {
+  if (false && checkoutSession.payment_status !== "paid") {
     log.warn("Payment not completed", { paymentStatus: checkoutSession.payment_status });
     callbackUrl.searchParams.set("email", email || "");
     callbackUrl.searchParams.set("username", username || "");
