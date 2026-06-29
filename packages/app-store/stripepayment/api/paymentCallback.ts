@@ -24,7 +24,8 @@ const querySchema = z.object({
 
 // It handles premium user payment success/failure
 async function getHandler(req: NextApiRequest, res: NextApiResponse) {
-  const { callbackUrl, checkoutSessionId } = querySchema.parse(req.query);
+  const callbackUrl = new URL(req.query.callbackUrl as string);
+  const checkoutSessionId = req.query.checkoutSessionId as string;
   const log = logger.getSubLogger({ prefix: [`[paymentCallback] checkoutSessionId: ${checkoutSessionId}`] });
   const { stripeCustomer, checkoutSession } = await getCustomerAndCheckoutSession(checkoutSessionId);
 
