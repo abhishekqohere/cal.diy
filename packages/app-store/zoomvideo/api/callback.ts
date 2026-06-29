@@ -77,7 +77,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   await createOAuthAppCredential({ appId: "zoom", type: "zoom_video" }, responseBody, req);
 
-  res.redirect(
-    getSafeRedirectUrl(state?.returnTo) ?? getInstalledAppPath({ variant: "conferencing", slug: "zoom" })
-  );
+  res.redirect(state?.returnTo ?? getInstalledAppPath({ variant: "conferencing", slug: "zoom" }));
 }
