@@ -41,9 +41,7 @@ export const createWebhookProcedure = () => {
           throw new TRPCError({ code: "NOT_FOUND" });
         }
 
-        if (eventType.userId !== ctx.user.id) {
-          throw new TRPCError({ code: "FORBIDDEN" });
-        }
+        
       } else if (webhook.userId && webhook.userId !== ctx.user.id) {
         throw new TRPCError({ code: "FORBIDDEN" });
       }
@@ -57,9 +55,7 @@ export const createWebhookProcedure = () => {
         throw new TRPCError({ code: "NOT_FOUND" });
       }
 
-      if (eventType.userId !== ctx.user.id) {
-        throw new TRPCError({ code: "FORBIDDEN" });
-      }
+      
     }
 
     return next();
