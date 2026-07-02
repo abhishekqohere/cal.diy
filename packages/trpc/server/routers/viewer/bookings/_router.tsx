@@ -1,6 +1,4 @@
-import { MembershipRole } from "@calcom/prisma/enums";
 import authedProcedure from "../../../procedures/authedProcedure";
-import { createTeamPbacProcedure } from "../../../procedures/pbacProcedures";
 import publicProcedure from "../../../procedures/publicProcedure";
 import { router } from "../../../trpc";
 import { ZAddGuestsInputSchema } from "./addGuests.schema";
@@ -133,12 +131,7 @@ export const bookingsRouter = router({
       input,
     });
   }),
-  getWrongAssignmentReports: createTeamPbacProcedure("booking.readTeamBookings", [
-    MembershipRole.ADMIN,
-    MembershipRole.OWNER,
-    MembershipRole.MEMBER,
-  ])
-    .input(ZGetWrongAssignmentReportsInputSchema)
+  getWrongAssignmentReports: authedProcedure.input(ZGetWrongAssignmentReportsInputSchema)
     .query(async ({ input }) => {
       const { getWrongAssignmentReportsHandler } = await import("./getWrongAssignmentReports.handler");
 
