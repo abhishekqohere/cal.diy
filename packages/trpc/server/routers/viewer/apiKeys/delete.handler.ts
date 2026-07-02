@@ -19,16 +19,9 @@ export const deleteHandler = async ({ ctx, input }: DeleteOptions) => {
     },
   });
 
-  await prisma.user.update({
+  await prisma.apiKey.delete({
     where: {
-      id: ctx.user.id,
-    },
-    data: {
-      apiKeys: {
-        delete: {
-          id,
-        },
-      },
+      id,
     },
   });
 
