@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-import { UserPermissionRole } from "@calcom/prisma/enums";
 
 import { buildLegacyRequest } from "@lib/buildLegacyCtx";
 
@@ -17,8 +16,8 @@ export default async function AdminLayoutAppDir(props: AdminLayoutAppDirProps) {
   const session = await getServerSession({ req: buildLegacyRequest(await headers(), await cookies()) });
   const userRole = session?.user?.role;
 
-  if (userRole !== UserPermissionRole.ADMIN) {
-    return redirect("/settings/my-account/profile");
+  if (!session?.user?.id) {
+    return redirect("/auth/login");
   }
 
   return await SettingsLayoutAppDir({ children: <AdminLayoutAppDirClient {...props} userRole={userRole} /> });
