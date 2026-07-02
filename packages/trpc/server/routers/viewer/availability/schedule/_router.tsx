@@ -1,4 +1,5 @@
 import authedProcedure from "../../../../procedures/authedProcedure";
+import publicProcedure from "../../../../procedures/publicProcedure";
 import { router } from "../../../../trpc";
 import { ZBulkUpdateToDefaultAvailabilityInputSchema } from "./bulkUpdateDefaultAvailability.schema";
 import { ZCreateInputSchema } from "./create.schema";
@@ -50,7 +51,7 @@ export const scheduleRouter = router({
     });
   }),
 
-  update: authedProcedure.input(ZUpdateInputSchema).mutation(async ({ input, ctx }) => {
+  update: publicProcedure.input(ZUpdateInputSchema).mutation(async ({ input, ctx }) => {
     const { updateHandler } = await import("./update.handler");
 
     return updateHandler({
