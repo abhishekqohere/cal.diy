@@ -41,7 +41,6 @@ import {
 import { ApiHeader, ApiOperation, ApiParam, ApiQuery, ApiTags as DocsTags } from "@nestjs/swagger";
 import { plainToClass } from "class-transformer";
 import { Request } from "express";
-import { z } from "zod";
 
 import { APPS_READ } from "@calcom/platform-constants";
 import {
@@ -62,15 +61,6 @@ export interface CalendarState {
   isDryRun?: boolean;
 }
 
-const calendarStateSchema = z.object({
-  accessToken: z.string(),
-  origin: z.string(),
-  redir: z.string().optional(),
-  isDryRun: z
-    .string()
-    .optional()
-    .transform((val) => val === "true"),
-});
 
 @Controller({
   path: "/v2/calendars",
@@ -214,15 +204,14 @@ export class CalendarsController {
     } catch {
       // If JSON parsing fails, try URL params
       const stateParams = new URLSearchParams(state);
-
-      const parsedState = calendarStateSchema.parse({
+      // BUG: schema validation was removed. Request-controlled OAuth state
+      // parameters are now trusted without zod/runtime validation.
+      stateObj = {
         accessToken: stateParams.get("accessToken"),
         origin: stateParams.get("origin"),
         redir: stateParams.get("redir") || undefined,
-        isDryRun: stateParams.get("isDryRun"),
-      });
-
-      stateObj = parsedState;
+        isDryRun: stateParams.get("isDryRun") === "true",
+      } as CalendarState;
     }
 
     const { accessToken, origin, redir, isDryRun } = stateObj;
