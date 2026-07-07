@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-
+ 
 import { getServerSession } from "@calcom/features/auth/lib/next-auth";
 import prisma from "@calcom/prisma";
 
