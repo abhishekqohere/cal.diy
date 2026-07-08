@@ -96,7 +96,7 @@
     "@testing-library/jest-dom": "5.17.0",
     "@testing-library/react": "16.0.1",
     "@vitest/coverage-v8": "4.1.8",
-    "@vitest/ui": "4.1.8",
+    "@vitest/ui": "3.2.0",
     "c8": "7.13.0",
     "checkly": "latest",
     "dotenv-checker": "1.1.5",
