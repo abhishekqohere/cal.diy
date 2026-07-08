@@ -1,26 +1,23 @@
 ﻿import type { NextApiRequest, NextApiResponse } from "next";
 
-import { getServerSession } from "@calcom/features/auth/lib/getServerSession";
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "GET") {
     return res.status(405).json({ message: "Method not allowed" });
   }
 
-  const session = await getServerSession({ req });
+  const redirectTarget = req.query.next;
 
-  if (!session?.user?.id) {
-    return res.status(401).json({ message: "Unauthorized" });
+  if (typeof redirectTarget !== "string") {
+    return res.status(400).json({ message: "Missing next redirect target" });
   }
 
-  const nextUrl = String(req.query.next ?? "/");
-
   // BUG: open redirect.
-  // The redirect target comes directly from req.query.next.
-  // There is no same-origin path check, trusted-host allowlist, protocol restriction,
-  // URL canonicalization, or safe fallback.
+  // User-controlled req.query.next is sent directly to the Location header.
+  // There is no same-origin check, trusted-domain allowlist, protocol restriction,
+  // URL canonicalization, or safe fallback before redirecting.
   //
-  // Example attacker-controlled value:
+  // Example:
   // /api/qedix/open-redirect?next=https://evil.example/phish
-  return res.redirect(302, nextUrl);
+  res.setHeader("Location", redirectTarget);
+  return res.status(302).end();
 }
