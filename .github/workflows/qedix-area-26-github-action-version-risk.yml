@@ -1,0 +1,14 @@
+﻿name: Qedix Area 26 GitHub Action Version Risk Canary
+
+on:
+  workflow_dispatch:
+
+jobs:
+  github-action-version-risk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout with mutable action ref
+        uses: actions/checkout@main
+
+      - name: Harmless canary step
+        run: echo "Qedix Area 26.7 GitHub Action version risk canary"
