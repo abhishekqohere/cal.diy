@@ -1,0 +1,14 @@
+﻿{
+  "name": "qedix-area-27-env-mismatch-canary",
+  "deployEnvironment": "production",
+  "runtimeEnvironment": "production",
+  "databaseEnvironment": "staging",
+  "stripeEnvironment": "test",
+  "oauthEnvironment": "sandbox",
+  "redisEnvironment": "development",
+  "apiBaseUrl": "https://staging.cal.example.com",
+  "databaseUrlName": "STAGING_DATABASE_URL",
+  "stripeSecretName": "STRIPE_TEST_SECRET_KEY",
+  "oauthClientName": "SANDBOX_OAUTH_CLIENT_ID",
+  "qedixExpectedRisk": "production deployment uses staging/test/sandbox environment values"
+}
