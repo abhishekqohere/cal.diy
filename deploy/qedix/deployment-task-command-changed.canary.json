@@ -1,0 +1,15 @@
+﻿{
+  "name": "qedix-area-27-deployment-task-command-changed-canary",
+  "environment": "production",
+  "deploymentTarget": "production",
+
+  "previousDeployCommand": "pnpm prisma migrate deploy && pnpm build && pnpm start",
+  "newDeployCommand": "pnpm start",
+
+  "removedSafetySteps": [
+    "pnpm prisma migrate deploy",
+    "pnpm build"
+  ],
+
+  "qedixExpectedRisk": "production deployment command was changed to start the app without migration or build safety steps"
+}
