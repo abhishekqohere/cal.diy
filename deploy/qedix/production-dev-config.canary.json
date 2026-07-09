@@ -1,0 +1,14 @@
+﻿{
+  "name": "qedix-area-27-production-dev-config-canary",
+  "environment": "production",
+  "deploymentTarget": "production",
+  "nodeEnv": "production",
+  "buildCommand": "next build",
+  "startCommand": "next start",
+  "publicAppEnv": "development",
+  "apiBaseUrl": "http://localhost:3000",
+  "authBaseUrl": "http://localhost:3000",
+  "debug": true,
+  "useMockPayments": true,
+  "useSandboxOAuth": true
+}
