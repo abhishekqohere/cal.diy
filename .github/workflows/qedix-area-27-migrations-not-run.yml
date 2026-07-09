@@ -1,0 +1,30 @@
+﻿name: Qedix Area 27 Migrations Not Run Canary
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: deploy-production-without-migrations
+    runs-on: ubuntu-latest
+
+    env:
+      QEDIX_DEPLOY_ENV: production
+      QEDIX_DATABASE_MIGRATIONS_REQUIRED: "true"
+      QEDIX_RUN_DATABASE_MIGRATIONS: "false"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build production app
+        run: pnpm build
+
+      - name: Deploy production app without running migrations
+        run: |
+          echo "QEDIX CANARY: deploying production without prisma migrate deploy"
+          echo "QEDIX CANARY: database migrations are required but intentionally skipped"
+          pnpm start
