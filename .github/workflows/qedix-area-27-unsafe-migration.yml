@@ -1,0 +1,26 @@
+﻿name: Qedix Area 27 Unsafe Migration Canary
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: deploy-production-with-unsafe-migration
+    runs-on: ubuntu-latest
+
+    env:
+      QEDIX_DEPLOY_ENV: production
+      QEDIX_DATABASE_ENV: production
+      QEDIX_MIGRATION_MODE: unsafe
+
+    steps:
+      - name: Unsafe production migration
+        run: |
+          echo "QEDIX CANARY: production deployment runs unsafe migration"
+          echo "QEDIX CANARY: prisma db push --accept-data-loss can alter/drop production data"
+          npx prisma db push --accept-data-loss
+
+      - name: Start production app after unsafe migration
+        run: |
+          echo "QEDIX CANARY: starting production app after unsafe migration"
+          pnpm start
