@@ -1,0 +1,23 @@
+﻿name: Qedix Area 27 Wrong Build Args Canary
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: deploy-production-with-wrong-build-args
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build production image with unsafe dev build args
+        run: |
+          docker build \
+            --build-arg NODE_ENV=development \
+            --build-arg NEXT_PUBLIC_APP_ENV=development \
+            --build-arg NEXT_PUBLIC_API_BASE_URL=http://localhost:3000 \
+            --build-arg QEDIX_DEPLOY_TARGET=production \
+            -t cal-diy-qedix-wrong-build-args:canary \
+            .
